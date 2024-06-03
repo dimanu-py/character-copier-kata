@@ -22,8 +22,7 @@ class Copier:
         self.destination = destination
 
     def copy_character(self) -> None:
-        while True:
-            char = self.source.get_char()
-            if char == "\n":
-                break
-            self.destination.set_char(char)
+        next_char = self.source.get_char()
+        while next_char != "\n":
+            self.destination.set_char(next_char)
+            next_char = self.source.get_char()
