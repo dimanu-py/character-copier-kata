@@ -1,11 +1,6 @@
 from abc import ABC, abstractmethod
 
-
-class ISource(ABC):
-
-    @abstractmethod
-    def get_char(self):
-        """Reads a character from the source"""
+from character_copier_kata.source import ISource
 
 
 class IDestination(ABC):
