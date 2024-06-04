@@ -1,7 +1,7 @@
 import pytest
 
 from character_copier_kata.copier import Copier
-from character_copier_kata.destination import IDestination
+from character_copier_kata.destination import IDestination, ListDestination
 from character_copier_kata.source import ISource, StringReader
 
 
@@ -42,16 +42,14 @@ class TestCopier:
 
     @pytest.mark.integration
     @pytest.mark.parametrize(
-        "input_string, expected_chars, expected_read_calls",
-        [("abc", ["a", "b", "c"], 3), ("def\nghi", ["d", "e", "f"], 3)],
+        "input_string, expected_chars",
+        [("abc", ["a", "b", "c"]), ("def\nghi", ["d", "e", "f"])],
     )
-    def test_copies_characters_from_string_reader(self, mocker, input_string, expected_chars, expected_read_calls):
+    def test_copies_characters_from_string_reader_and_writes_to_list(self, input_string, expected_chars):
         source = StringReader(input_string)
-        destination = mocker.Mock(spec=IDestination)
+        destination = ListDestination()
         copier = Copier(source, destination)
 
         copier.copy_character()
 
-        assert destination.set_char.call_count == expected_read_calls
-        expected_calls = [mocker.call(char) for char in expected_chars]
-        destination.set_char.assert_has_calls(expected_calls)
+        assert destination._chars == expected_chars
