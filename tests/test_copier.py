@@ -1,7 +1,7 @@
 import pytest
 
 from character_copier_kata.copier import IDestination, Copier
-from character_copier_kata.source import ISource
+from character_copier_kata.source import ISource, StringReader
 
 
 class TestCopier:
@@ -37,4 +37,20 @@ class TestCopier:
         assert source.get_char.call_count == len(expected_write_calls) + 1
         assert destination.set_char.call_count == expected_read_calls
         expected_calls = [mocker.call(char) for char in expected_write_calls]
+        destination.set_char.assert_has_calls(expected_calls)
+
+    @pytest.mark.integration
+    @pytest.mark.parametrize(
+        "input_string, expected_chars, expected_read_calls",
+        [("abc", ["a", "b", "c"], 3), ("def\nghi", ["d", "e", "f"], 3)],
+    )
+    def test_copies_characters_from_string_reader(self, mocker, input_string, expected_chars, expected_read_calls):
+        source = StringReader(input_string)
+        destination = mocker.Mock(spec=IDestination)
+        copier = Copier(source, destination)
+
+        copier.copy_character()
+
+        assert destination.set_char.call_count == expected_read_calls
+        expected_calls = [mocker.call(char) for char in expected_chars]
         destination.set_char.assert_has_calls(expected_calls)
