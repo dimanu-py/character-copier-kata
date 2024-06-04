@@ -73,9 +73,7 @@ poetry run pytest
 
 ## Learnings
 
-1. The Open/Closed principle was not being followed. It would be difficult to add new types of alarms without modifying the Alarm class.
-2. It was difficult to test the Alarm class because it was tightly coupled to the Sensor class.
-3. We've learned how to use Stubs and Mocks to test a class without depending on other classes.
+We've learnt how to implement Copier class by not depending on its collaborators, just focusing on how we want them to interact.
 
 ### Visit my GitHub profile to see all solved katas 🚀
 
