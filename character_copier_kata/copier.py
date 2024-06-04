@@ -1,13 +1,5 @@
-from abc import ABC, abstractmethod
-
+from character_copier_kata.destination import IDestination
 from character_copier_kata.source import ISource
-
-
-class IDestination(ABC):
-
-    @abstractmethod
-    def set_char(self, char):
-        """Writes a character to the destination"""
 
 
 class Copier:

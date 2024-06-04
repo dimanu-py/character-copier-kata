@@ -1,6 +1,7 @@
 import pytest
 
-from character_copier_kata.copier import IDestination, Copier
+from character_copier_kata.copier import Copier
+from character_copier_kata.destination import IDestination
 from character_copier_kata.source import ISource, StringReader
 
 
